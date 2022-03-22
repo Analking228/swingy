@@ -16,10 +16,4 @@ public class        MainWindow extends JFrame {
         this.setSize(wSX, wSY);
         this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
     }
-
-    public void     refreshFrame() {
-        this.invalidate();
-        this.validate();
-        this.repaint();
-    }
 }
