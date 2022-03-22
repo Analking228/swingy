@@ -1,0 +1,25 @@
+package View;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class        MainWindow extends JFrame {
+
+    public          MainWindow() {
+        super("CockTail");
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension dimension = toolkit.getScreenSize();
+        int wSX = 320;
+        int wSY = 345;
+        this.setSize(wSX, wSY);
+        this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
+    }
+
+    public void     refreshFrame() {
+        this.invalidate();
+        this.validate();
+        this.repaint();
+    }
+}
