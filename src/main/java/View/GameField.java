@@ -65,6 +65,12 @@ public class GameField extends JPanel implements ActionListener{
             for (int i = 0; i < this.snakeSize; i++) {
                 g.drawImage(dot, x[i], y[i], this);
             }
+        } else {
+            String gameOver = "Game Over";
+            Font font =  new Font("Arial", Font.BOLD, 16);
+            g.setColor(Color.white);
+            g.setFont(font);
+            g.drawString(gameOver, 115, SIZE_PIXEL/2 - 8);
         }
     }
 
@@ -129,7 +135,7 @@ public class GameField extends JPanel implements ActionListener{
                 down = false;
             }
             if (key == KeyEvent.VK_RIGHT && !left) {
-                left = true;
+                right = true;
                 up = false;
                 down = false;
             }
