@@ -9,15 +9,14 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener{
-    private final int   SIZE_PIXEL = 320;
-    private final int   DOT_SIZE = 16;
-    private final int   ALL_DOTS = 400;
+    private final int   FIELD_SIZE = 320;
+    private final int   CELL_SIZE = 16;
     private Image       dot;
     private Image       apple;
     private int         appleX;
     private int         appleY;
-    private int[]       x = new int[ALL_DOTS];
-    private int[]       y = new int[ALL_DOTS];
+    private int[]       fieldX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
+    private int[]       fieldY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
     private int         snakeSize;
     private Timer       timer;
     private boolean     left = false;
@@ -37,8 +36,8 @@ public class GameField extends JPanel implements ActionListener{
     public void     initGame() {
         this.snakeSize = 3;
         for (int i = 0; i < this.snakeSize; i++) {
-            x[i] = 48 - i * DOT_SIZE;
-            y[i] = 48;
+            fieldX[i] = 48 - i * CELL_SIZE;
+            fieldY[i] = 48;
         }
         timer = new Timer(250, this);
         timer.start();
@@ -46,8 +45,8 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     public void     createApple() {
-        this.appleX = new Random().nextInt(20) * DOT_SIZE;
-        this.appleY = new Random().nextInt(20) * DOT_SIZE;
+        this.appleX = new Random().nextInt(20) * CELL_SIZE;
+        this.appleY = new Random().nextInt(20) * CELL_SIZE;
     }
 
     public void     loadImages() {
@@ -63,34 +62,34 @@ public class GameField extends JPanel implements ActionListener{
         if (this.inGame) {
             g.drawImage(apple, appleX, appleY, this);
             for (int i = 0; i < this.snakeSize; i++) {
-                g.drawImage(dot, x[i], y[i], this);
+                g.drawImage(dot, fieldX[i], fieldY[i], this);
             }
         } else {
             String gameOver = "Game Over";
             Font font =  new Font("Arial", Font.BOLD, 16);
             g.setColor(Color.white);
             g.setFont(font);
-            g.drawString(gameOver, 115, SIZE_PIXEL/2 - 8);
+            g.drawString(gameOver, 115, FIELD_SIZE/2 - 8);
         }
     }
 
     public void     move() {
         for (int i = this.snakeSize; i > 0; i--) {
-            x[i] = x[i - 1];
-            y[i] = y[i - 1];
+            fieldX[i] = fieldX[i - 1];
+            fieldY[i] = fieldY[i - 1];
         }
         if (left)
-            x[0] -= DOT_SIZE;
+            fieldX[0] -= CELL_SIZE;
         if (right)
-            x[0] += DOT_SIZE;
+            fieldX[0] += CELL_SIZE;
         if (up)
-            y[0] -= DOT_SIZE;
+            fieldY[0] -= CELL_SIZE;
         if (down)
-            y[0] += DOT_SIZE;
+            fieldY[0] += CELL_SIZE;
     }
 
     public void     checkApple() {
-        if (x[0] == appleX && y[0] == appleY) {
+        if (fieldX[0] == appleX && fieldY[0] == appleY) {
             this.snakeSize++;
             createApple();
         }
@@ -98,19 +97,19 @@ public class GameField extends JPanel implements ActionListener{
 
     public void     checkCollisions() {
         for (int i = this.snakeSize; i > 0; i--) {
-            if (i > 4 && x[0] == x[i] && y[0] == y[i]) {
+            if (i > 4 && fieldX[0] == fieldX[i] && fieldY[0] == fieldY[i]) {
                 inGame = false;
                 break;
             }
         }
 
-        if (x[0] > SIZE_PIXEL)
+        if (fieldX[0] > FIELD_SIZE)
             inGame = false;
-        if (y[0] > SIZE_PIXEL)
+        if (fieldY[0] > FIELD_SIZE)
             inGame = false;
-        if (x[0] < 0)
+        if (fieldX[0] < 0)
             inGame = false;
-        if (y[0] < 0)
+        if (fieldY[0] < 0)
             inGame = false;
     }
 
@@ -121,7 +120,7 @@ public class GameField extends JPanel implements ActionListener{
             checkCollisions();
             move();
         }
-        repaint();
+        this.repaint();
     }
 
     class FieldKeyListener extends KeyAdapter {

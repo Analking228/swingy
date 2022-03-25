@@ -14,7 +14,7 @@ public class        MainWindow extends JFrame {
         int wSY = 345;
         this.setSize(wSX, wSY);
         this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
-        this.add(new GameField());
-        this.setVisible(true);
+//        this.add(new GameField());
+//        this.setVisible(true);
     }
 }
