@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Field;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener{
@@ -15,8 +16,8 @@ public class GameField extends JPanel implements ActionListener{
     private Image       apple;
     private int         appleX;
     private int         appleY;
-    private int[]       fieldX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
-    private int[]       fieldY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
+    private int[]       fieldCellX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
+    private int[]       fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
     private int         snakeSize;
     private Timer       timer;
     private boolean     left = false;
@@ -36,12 +37,17 @@ public class GameField extends JPanel implements ActionListener{
     public void     initGame() {
         this.snakeSize = 3;
         for (int i = 0; i < this.snakeSize; i++) {
-            fieldX[i] = 48 - i * CELL_SIZE;
-            fieldY[i] = 48;
+            fieldCellX[i] = 48 - i * CELL_SIZE;
+            fieldCellY[i] = 48;
         }
         timer = new Timer(250, this);
         timer.start();
         createApple();
+    }
+
+    public void     restartGame() {
+        initGame();
+        setFocusable(true);
     }
 
     public void     createApple() {
@@ -62,34 +68,37 @@ public class GameField extends JPanel implements ActionListener{
         if (this.inGame) {
             g.drawImage(apple, appleX, appleY, this);
             for (int i = 0; i < this.snakeSize; i++) {
-                g.drawImage(dot, fieldX[i], fieldY[i], this);
+                g.drawImage(dot, fieldCellX[i], fieldCellY[i], this);
             }
         } else {
+            JButton gameOverBtn = new JButton("Try again");
+            gameOverBtn.setBounds(FIELD_SIZE/2 - 45, FIELD_SIZE/2 + 15,90, 30);
+            this.add(gameOverBtn);
             String gameOver = "Game Over";
             Font font =  new Font("Arial", Font.BOLD, 16);
             g.setColor(Color.white);
             g.setFont(font);
-            g.drawString(gameOver, 115, FIELD_SIZE/2 - 8);
+            g.drawString(gameOver, 118, FIELD_SIZE/2 - 8);
         }
     }
 
     public void     move() {
         for (int i = this.snakeSize; i > 0; i--) {
-            fieldX[i] = fieldX[i - 1];
-            fieldY[i] = fieldY[i - 1];
+            fieldCellX[i] = fieldCellX[i - 1];
+            fieldCellY[i] = fieldCellY[i - 1];
         }
         if (left)
-            fieldX[0] -= CELL_SIZE;
+            fieldCellX[0] -= CELL_SIZE;
         if (right)
-            fieldX[0] += CELL_SIZE;
+            fieldCellX[0] += CELL_SIZE;
         if (up)
-            fieldY[0] -= CELL_SIZE;
+            fieldCellY[0] -= CELL_SIZE;
         if (down)
-            fieldY[0] += CELL_SIZE;
+            fieldCellY[0] += CELL_SIZE;
     }
 
     public void     checkApple() {
-        if (fieldX[0] == appleX && fieldY[0] == appleY) {
+        if (fieldCellX[0] == appleX && fieldCellY[0] == appleY) {
             this.snakeSize++;
             createApple();
         }
@@ -97,19 +106,19 @@ public class GameField extends JPanel implements ActionListener{
 
     public void     checkCollisions() {
         for (int i = this.snakeSize; i > 0; i--) {
-            if (i > 4 && fieldX[0] == fieldX[i] && fieldY[0] == fieldY[i]) {
+            if (i > 4 && fieldCellX[0] == fieldCellX[i] && fieldCellY[0] == fieldCellY[i]) {
                 inGame = false;
                 break;
             }
         }
 
-        if (fieldX[0] > FIELD_SIZE)
+        if (fieldCellX[0] > FIELD_SIZE)
             inGame = false;
-        if (fieldY[0] > FIELD_SIZE)
+        if (fieldCellY[0] > FIELD_SIZE)
             inGame = false;
-        if (fieldX[0] < 0)
+        if (fieldCellX[0] < 0)
             inGame = false;
-        if (fieldY[0] < 0)
+        if (fieldCellY[0] < 0)
             inGame = false;
     }
 
