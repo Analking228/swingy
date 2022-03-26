@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener{
@@ -23,10 +21,10 @@ public class GameField extends JPanel implements ActionListener{
     private boolean     right;
     private boolean     up;
     private boolean     down;
-    Action              upAction;
-    Action              downAction;
-    Action              leftAction;
-    Action              rightAction;
+    private Action      upAction;
+    private Action      downAction;
+    private Action      leftAction;
+    private Action      rightAction;
     private boolean     inGame = true;
 
     public GameField() {
@@ -45,7 +43,6 @@ public class GameField extends JPanel implements ActionListener{
         setBackground(Color.black);
         loadImages();
         initGame();
-        //this.addKeyListener(new FieldKeyListener());
         setFocusable(true);
     }
 
@@ -81,10 +78,9 @@ public class GameField extends JPanel implements ActionListener{
         }
         this.revalidate();
         this.repaint();
-        setMovingRight();
         this.inGame = true;
         initGame();
-        setFocusable(true);
+        //setFocusable(true);
     }
 
     public void     setMovingRight() {
