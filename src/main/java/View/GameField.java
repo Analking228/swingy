@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.lang.reflect.Field;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener{
@@ -20,21 +19,38 @@ public class GameField extends JPanel implements ActionListener{
     private int[]       fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
     private int         snakeSize;
     private Timer       timer;
-    private boolean     left = false;
-    private boolean     right = true;
-    private boolean     up = false;
-    private boolean     down = false;
+    private boolean     left;
+    private boolean     right;
+    private boolean     up;
+    private boolean     down;
+    Action              upAction;
+    Action              downAction;
+    Action              leftAction;
+    Action              rightAction;
     private boolean     inGame = true;
 
     public GameField() {
+        this.upAction = new UpAction();
+        this.downAction = new DownAction();
+        this.leftAction = new LeftAction();
+        this.rightAction = new RightAction();
+        this.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upAction");
+        this.getActionMap().put("upAction", upAction);
+        this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downAction");
+        this.getActionMap().put("downAction", downAction);
+        this.getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "leftAction");
+        this.getActionMap().put("leftAction", leftAction);
+        this.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "rightAction");
+        this.getActionMap().put("rightAction", rightAction);
         setBackground(Color.black);
         loadImages();
         initGame();
-        addKeyListener(new FieldKeyListener());
+        //this.addKeyListener(new FieldKeyListener());
         setFocusable(true);
     }
 
     public void     initGame() {
+        setMovingRight();
         this.snakeSize = 3;
         for (int i = 0; i < this.snakeSize; i++) {
             fieldCellX[i] = 48 - i * CELL_SIZE;
@@ -43,11 +59,6 @@ public class GameField extends JPanel implements ActionListener{
         timer = new Timer(250, this);
         timer.start();
         createApple();
-    }
-
-    public void     restartGame() {
-        initGame();
-        setFocusable(true);
     }
 
     public void     createApple() {
@@ -62,6 +73,52 @@ public class GameField extends JPanel implements ActionListener{
         this.dot = iid.getImage();
     }
 
+    public void     restartGame() {
+        Component[] componentList = this.getComponents();
+        for(Component c : componentList) {
+            if (c instanceof JButton)
+                this.remove(c);
+        }
+        this.revalidate();
+        this.repaint();
+        setMovingRight();
+        this.inGame = true;
+        initGame();
+        setFocusable(true);
+    }
+
+    public void     setMovingRight() {
+        if (!this.left) {
+            this.right = true;
+            this.up = false;
+            this.down = false;
+        }
+    }
+
+    public void     setMovingLeft() {
+        if (!this.right) {
+            this.left = true;
+            this.up = false;
+            this.down = false;
+        }
+    }
+
+    public void     setMovingUp() {
+        if (!this.down) {
+            this.left = false;
+            this.right = false;
+            this.up = true;
+        }
+    }
+
+    public void     setMovingDown() {
+        if (!this.up) {
+            this.left = false;
+            this.right = false;
+            this.down = true;
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -73,12 +130,14 @@ public class GameField extends JPanel implements ActionListener{
         } else {
             JButton gameOverBtn = new JButton("Try again");
             gameOverBtn.setBounds(FIELD_SIZE/2 - 45, FIELD_SIZE/2 + 15,90, 30);
+            gameOverBtn.addActionListener(e -> restartGame());
             this.add(gameOverBtn);
             String gameOver = "Game Over";
             Font font =  new Font("Arial", Font.BOLD, 16);
             g.setColor(Color.white);
             g.setFont(font);
             g.drawString(gameOver, 118, FIELD_SIZE/2 - 8);
+            timer.stop();
         }
     }
 
@@ -132,31 +191,31 @@ public class GameField extends JPanel implements ActionListener{
         this.repaint();
     }
 
-    class FieldKeyListener extends KeyAdapter {
+    class UpAction extends AbstractAction {
         @Override
-        public void keyPressed(KeyEvent e) {
-            super.keyPressed(e);
-            int key = e.getKeyCode();
-            if (key == KeyEvent.VK_LEFT && !right) {
-                left = true;
-                up = false;
-                down = false;
-            }
-            if (key == KeyEvent.VK_RIGHT && !left) {
-                right = true;
-                up = false;
-                down = false;
-            }
-            if (key == KeyEvent.VK_UP && !down) {
-                left = false;
-                up = true;
-                right = false;
-            }
-            if (key == KeyEvent.VK_DOWN && !up) {
-                left = false;
-                down = true;
-                right = false;
-            }
+        public void actionPerformed(ActionEvent e) {
+            setMovingUp();
+        }
+    }
+
+    class DownAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setMovingDown();
+        }
+    }
+
+    class LeftAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setMovingLeft();
+        }
+    }
+
+    class RightAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setMovingRight();
         }
     }
 }

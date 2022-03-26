@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class        MainWindow extends JFrame {
 
@@ -14,7 +15,9 @@ public class        MainWindow extends JFrame {
         int wSY = 345;
         this.setSize(wSX, wSY);
         this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
-//        this.add(new GameField());
-//        this.setVisible(true);
+        //this.setLayout(null);
+        this.add(new GameField());
+        this.setVisible(true);
+        //setFocusable(true);
     }
 }
