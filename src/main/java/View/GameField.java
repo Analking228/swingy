@@ -13,8 +13,8 @@ public class GameField extends JPanel implements ActionListener{
     private Image       apple;
     private int         appleX;
     private int         appleY;
-    private int[]       fieldCellX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
-    private int[]       fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
+    private int[]       fieldCellX;
+    private int[]       fieldCellY;
     private int         snakeSize;
     private Timer       timer;
     private boolean     left;
@@ -28,10 +28,13 @@ public class GameField extends JPanel implements ActionListener{
     private boolean     inGame = true;
 
     public GameField() {
+        this.fieldCellX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
+        this.fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
         this.upAction = new UpAction();
         this.downAction = new DownAction();
         this.leftAction = new LeftAction();
         this.rightAction = new RightAction();
+        timer = new Timer(250, this);
         this.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upAction");
         this.getActionMap().put("upAction", upAction);
         this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downAction");
@@ -43,7 +46,6 @@ public class GameField extends JPanel implements ActionListener{
         setBackground(Color.black);
         loadImages();
         initGame();
-        setFocusable(true);
     }
 
     public void     initGame() {
@@ -53,9 +55,11 @@ public class GameField extends JPanel implements ActionListener{
             fieldCellX[i] = 48 - i * CELL_SIZE;
             fieldCellY[i] = 48;
         }
-        timer = new Timer(250, this);
         timer.start();
         createApple();
+        setFocusable(true);
+        requestFocusInWindow();
+        requestFocus();
     }
 
     public void     createApple() {
@@ -80,7 +84,6 @@ public class GameField extends JPanel implements ActionListener{
         this.repaint();
         this.inGame = true;
         initGame();
-        //setFocusable(true);
     }
 
     public void     setMovingRight() {
@@ -100,6 +103,7 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     public void     setMovingUp() {
+        System.out.println("POOP");
         if (!this.down) {
             this.left = false;
             this.right = false;
@@ -124,6 +128,7 @@ public class GameField extends JPanel implements ActionListener{
                 g.drawImage(dot, fieldCellX[i], fieldCellY[i], this);
             }
         } else {
+            timer.stop();
             JButton gameOverBtn = new JButton("Try again");
             gameOverBtn.setBounds(FIELD_SIZE/2 - 45, FIELD_SIZE/2 + 15,90, 30);
             gameOverBtn.addActionListener(e -> restartGame());
@@ -133,7 +138,6 @@ public class GameField extends JPanel implements ActionListener{
             g.setColor(Color.white);
             g.setFont(font);
             g.drawString(gameOver, 118, FIELD_SIZE/2 - 8);
-            timer.stop();
         }
     }
 
