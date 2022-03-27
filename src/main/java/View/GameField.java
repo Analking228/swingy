@@ -1,5 +1,7 @@
 package View;
 
+import View.SubClasses.MovingDir;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,33 +9,27 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener{
-    private final int   FIELD_SIZE = 320;
-    private final int   CELL_SIZE = 16;
-    private Image       dot;
-    private Image       apple;
-    private int         appleX;
-    private int         appleY;
-    private int[]       fieldCellX;
-    private int[]       fieldCellY;
-    private int         snakeSize;
-    private Timer       timer;
-    private boolean     left;
-    private boolean     right;
-    private boolean     up;
-    private boolean     down;
-    private Action      upAction;
-    private Action      downAction;
-    private Action      leftAction;
-    private Action      rightAction;
-    private boolean     inGame = true;
+    private Image           dot;
+    private Image           apple;
+    private int             appleX;
+    private int             appleY;
+    private int             snakeSize;
+    private boolean         inGame = true;
+    private final int       FIELD_SIZE = 320;
+    private final int       CELL_SIZE = 16;
+    private final int[]     fieldCellX;
+    private final int[]     fieldCellY;
+    private final Timer     timer;
+    private final MovingDir movingDir;
 
     public GameField() {
+        this.movingDir = new MovingDir();
         this.fieldCellX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
         this.fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
-        this.upAction = new UpAction();
-        this.downAction = new DownAction();
-        this.leftAction = new LeftAction();
-        this.rightAction = new RightAction();
+        Action upAction = new UpAction();
+        Action downAction = new DownAction();
+        Action leftAction = new LeftAction();
+        Action rightAction = new RightAction();
         timer = new Timer(250, this);
         this.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upAction");
         this.getActionMap().put("upAction", upAction);
@@ -87,35 +83,27 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     public void     setMovingRight() {
-        if (!this.left) {
-            this.right = true;
-            this.up = false;
-            this.down = false;
+        if (!this.movingDir.getMovingDir().equals("left")) {
+            this.movingDir.setMovingRight();
         }
     }
 
     public void     setMovingLeft() {
-        if (!this.right) {
-            this.left = true;
-            this.up = false;
-            this.down = false;
+        if (!this.movingDir.getMovingDir().equals("right")) {
+            this.movingDir.setMovingLeft();
         }
     }
 
     public void     setMovingUp() {
-        System.out.println("POOP");
-        if (!this.down) {
-            this.left = false;
-            this.right = false;
-            this.up = true;
+        if (!this.movingDir.getMovingDir().equals("down")) {
+            this.movingDir.setMovingUp();
         }
     }
 
     public void     setMovingDown() {
-        if (!this.up) {
-            this.left = false;
-            this.right = false;
-            this.down = true;
+        System.out.println(this.movingDir.getMovingDir());
+        if (!this.movingDir.getMovingDir().equals("up")) {
+            this.movingDir.setMovingDown();
         }
     }
 
@@ -146,13 +134,13 @@ public class GameField extends JPanel implements ActionListener{
             fieldCellX[i] = fieldCellX[i - 1];
             fieldCellY[i] = fieldCellY[i - 1];
         }
-        if (left)
+        if (this.movingDir.getMovingDir().equals("left"))
             fieldCellX[0] -= CELL_SIZE;
-        if (right)
+        if (this.movingDir.getMovingDir().equals("right"))
             fieldCellX[0] += CELL_SIZE;
-        if (up)
+        if (this.movingDir.getMovingDir().equals("up"))
             fieldCellY[0] -= CELL_SIZE;
-        if (down)
+        if (this.movingDir.getMovingDir().equals("down"))
             fieldCellY[0] += CELL_SIZE;
     }
 
