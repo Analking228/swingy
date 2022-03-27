@@ -29,7 +29,6 @@ public class        MovingDir {
     }
 
     public void     setMovingUp() {
-        System.out.println("POOP");
         if (!this.down) {
             this.left = false;
             this.right = false;
