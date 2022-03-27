@@ -12,12 +12,10 @@ public class        MainWindow extends JFrame {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
         int wSX = 320;
-        int wSY = 345;
+        int wSY = wSX + 25;
         this.setSize(wSX, wSY);
         this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
-        //this.setLayout(null);
-        this.add(new GameField());
+        this.add(new GameField(wSX));
         this.setVisible(true);
-        //setFocusable(true);
     }
 }

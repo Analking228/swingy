@@ -15,22 +15,24 @@ public class GameField extends JPanel implements ActionListener{
     private int             appleY;
     private int             snakeSize;
     private boolean         inGame = true;
-    private final int       FIELD_SIZE = 320;
-    private final int       CELL_SIZE = 16;
+    private final int       FIELD_SIZE;
+    private final int       CELL_SIZE;
     private final int[]     fieldCellX;
     private final int[]     fieldCellY;
     private final Timer     timer;
     private final MovingDir movingDir;
 
-    public GameField() {
+    public GameField(int gameFieldXSize) {
+        FIELD_SIZE = gameFieldXSize;
+        CELL_SIZE = FIELD_SIZE / 20;
         this.movingDir = new MovingDir();
         this.fieldCellX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
         this.fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
+        timer = new Timer(250, this);
         Action upAction = new UpAction();
         Action downAction = new DownAction();
         Action leftAction = new LeftAction();
         Action rightAction = new RightAction();
-        timer = new Timer(250, this);
         this.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upAction");
         this.getActionMap().put("upAction", upAction);
         this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downAction");
@@ -118,14 +120,14 @@ public class GameField extends JPanel implements ActionListener{
         } else {
             timer.stop();
             JButton gameOverBtn = new JButton("Try again");
-            gameOverBtn.setBounds(FIELD_SIZE/2 - 45, FIELD_SIZE/2 + 15,90, 30);
+            gameOverBtn.setBounds(FIELD_SIZE/2 - 45, FIELD_SIZE/2 + 15,FIELD_SIZE/3, FIELD_SIZE/10);
             gameOverBtn.addActionListener(e -> restartGame());
             this.add(gameOverBtn);
             String gameOver = "Game Over";
-            Font font =  new Font("Arial", Font.BOLD, 16);
+            Font font =  new Font("Arial", Font.BOLD, (int)(FIELD_SIZE/20));
             g.setColor(Color.white);
             g.setFont(font);
-            g.drawString(gameOver, 118, FIELD_SIZE/2 - 8);
+            g.drawString(gameOver, FIELD_SIZE/2 - (FIELD_SIZE/9) , FIELD_SIZE/2 - (FIELD_SIZE/30));
         }
     }
 
@@ -158,7 +160,6 @@ public class GameField extends JPanel implements ActionListener{
                 break;
             }
         }
-
         if (fieldCellX[0] > FIELD_SIZE)
             inGame = false;
         if (fieldCellY[0] > FIELD_SIZE)
