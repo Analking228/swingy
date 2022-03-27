@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class GameField extends JPanel implements ActionListener{
-    private Image           dot;
     private Image           apple;
     private int             appleX;
     private int             appleY;
@@ -68,8 +67,6 @@ public class GameField extends JPanel implements ActionListener{
     public void     loadImages() {
         ImageIcon   iia = new ImageIcon("src/main/resources/apple.jpg");
         this.apple = iia.getImage();
-        ImageIcon   iid = new ImageIcon("src/main/resources/field.jpg");
-        this.dot = iid.getImage();
     }
 
     public void     restartGame() {
@@ -115,7 +112,8 @@ public class GameField extends JPanel implements ActionListener{
         if (this.inGame) {
             g.drawImage(apple, appleX, appleY, this);
             for (int i = 0; i < this.snakeSize; i++) {
-                g.drawImage(dot, fieldCellX[i], fieldCellY[i], this);
+                g.setColor(Color.green);
+                g.fillRect(fieldCellX[i], fieldCellY[i], CELL_SIZE, CELL_SIZE);
             }
         } else {
             timer.stop();
