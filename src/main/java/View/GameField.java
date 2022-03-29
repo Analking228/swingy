@@ -46,11 +46,12 @@ public class                GameField extends JPanel implements ActionListener{
     }
 
     public void             initGame() {
+        System.out.println(CELL_SIZE);
         this.movingDir.setMovingRight();
         this.snakeSize = 3;
         for (int i = 0; i < this.snakeSize; i++) {
-            fieldCellX[i] = 48 - i * CELL_SIZE;
-            fieldCellY[i] = 48;
+            fieldCellX[i] = CELL_SIZE*3 - i * CELL_SIZE;
+            fieldCellY[i] = CELL_SIZE*3;
         }
         timer.start();
         createApple();
@@ -60,8 +61,8 @@ public class                GameField extends JPanel implements ActionListener{
     }
 
     public void             createApple() {
-        this.appleX = new Random().nextInt(20) * CELL_SIZE;
-        this.appleY = new Random().nextInt(20) * CELL_SIZE;
+        this.appleX = new Random().nextInt(19) * CELL_SIZE;
+        this.appleY = new Random().nextInt(19) * CELL_SIZE;
     }
 
 //    public void             loadImages() {
@@ -146,6 +147,8 @@ public class                GameField extends JPanel implements ActionListener{
     }
 
     public void             checkApple() {
+//        System.out.println("Apple pos: " + this.appleX + "-" + this.appleY);
+//        System.out.println("Snake head pos:" + this.fieldCellX[0] + "-" + this.fieldCellY[0]);
         if (fieldCellX[0] == appleX && fieldCellY[0] == appleY) {
             this.snakeSize++;
             createApple();
