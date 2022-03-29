@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class                GameField extends JPanel implements ActionListener{
+public class GamePlane extends JPanel implements ActionListener{
 //    private Image           apple;
     private int             appleX;
     private int             appleY;
@@ -21,7 +21,7 @@ public class                GameField extends JPanel implements ActionListener{
     private final Timer     timer;
     private final MovingDir movingDir;
 
-    public                  GameField(int gameFieldXSize, MovingDir movingDir) {
+    public GamePlane(int gameFieldXSize, MovingDir movingDir) {
         FIELD_SIZE = gameFieldXSize;
         CELL_SIZE = FIELD_SIZE / 20;
         this.movingDir = movingDir;
@@ -61,8 +61,8 @@ public class                GameField extends JPanel implements ActionListener{
     }
 
     public void             createApple() {
-        this.appleX = new Random().nextInt(19) * CELL_SIZE;
-        this.appleY = new Random().nextInt(19) * CELL_SIZE;
+        this.appleX = new Random().nextInt(20) * CELL_SIZE;
+        this.appleY = new Random().nextInt(20) * CELL_SIZE;
     }
 
 //    public void             loadImages() {
