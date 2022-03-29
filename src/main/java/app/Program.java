@@ -1,3 +1,5 @@
+package app;
+
 import View.MainWindow;
 
 public class Program {

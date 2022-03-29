@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class                GameField extends JPanel implements ActionListener{
-    private Image           apple;
+//    private Image           apple;
     private int             appleX;
     private int             appleY;
     private int             snakeSize;
@@ -41,7 +41,7 @@ public class                GameField extends JPanel implements ActionListener{
         this.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "rightAction");
         this.getActionMap().put("rightAction", rightAction);
         setBackground(Color.black);
-        loadImages();
+//        loadImages();
         initGame();
     }
 
@@ -64,10 +64,10 @@ public class                GameField extends JPanel implements ActionListener{
         this.appleY = new Random().nextInt(20) * CELL_SIZE;
     }
 
-    public void             loadImages() {
-        ImageIcon           iia = new ImageIcon("src/main/resources/apple.jpg");
-        this.apple = iia.getImage();
-    }
+//    public void             loadImages() {
+//        ImageIcon           iia = new ImageIcon("src/main/resources/apple.jpg");
+//        this.apple = iia.getImage();
+//    }
 
     public void             restartGame() {
         Component[]         componentList = this.getComponents();
@@ -109,7 +109,8 @@ public class                GameField extends JPanel implements ActionListener{
     protected void          paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.inGame) {
-            g.drawImage(apple, appleX, appleY, this);
+            g.setColor(Color.red);
+            g.fillRect(appleX, appleY, CELL_SIZE, CELL_SIZE);
             for (int i = 0; i < this.snakeSize; i++) {
                 g.setColor(Color.green);
                 g.fillRect(fieldCellX[i], fieldCellY[i], CELL_SIZE, CELL_SIZE);
