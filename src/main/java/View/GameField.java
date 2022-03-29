@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class GameField extends JPanel implements ActionListener{
+public class                GameField extends JPanel implements ActionListener{
     private Image           apple;
     private int             appleX;
     private int             appleY;
@@ -21,17 +21,17 @@ public class GameField extends JPanel implements ActionListener{
     private final Timer     timer;
     private final MovingDir movingDir;
 
-    public GameField(int gameFieldXSize) {
+    public                  GameField(int gameFieldXSize, MovingDir movingDir) {
         FIELD_SIZE = gameFieldXSize;
         CELL_SIZE = FIELD_SIZE / 20;
-        this.movingDir = new MovingDir();
+        this.movingDir = movingDir;
         this.fieldCellX = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
         this.fieldCellY = new int[(FIELD_SIZE / CELL_SIZE) * (FIELD_SIZE / CELL_SIZE)];
         timer = new Timer(250, this);
-        Action upAction = new UpAction();
-        Action downAction = new DownAction();
-        Action leftAction = new LeftAction();
-        Action rightAction = new RightAction();
+        Action              upAction = new UpAction();
+        Action              downAction = new DownAction();
+        Action              leftAction = new LeftAction();
+        Action              rightAction = new RightAction();
         this.getInputMap().put(KeyStroke.getKeyStroke("UP"), "upAction");
         this.getActionMap().put("upAction", upAction);
         this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "downAction");
@@ -45,8 +45,8 @@ public class GameField extends JPanel implements ActionListener{
         initGame();
     }
 
-    public void     initGame() {
-        setMovingRight();
+    public void             initGame() {
+        this.movingDir.setMovingRight();
         this.snakeSize = 3;
         for (int i = 0; i < this.snakeSize; i++) {
             fieldCellX[i] = 48 - i * CELL_SIZE;
@@ -59,18 +59,18 @@ public class GameField extends JPanel implements ActionListener{
         requestFocus();
     }
 
-    public void     createApple() {
+    public void             createApple() {
         this.appleX = new Random().nextInt(20) * CELL_SIZE;
         this.appleY = new Random().nextInt(20) * CELL_SIZE;
     }
 
-    public void     loadImages() {
-        ImageIcon   iia = new ImageIcon("src/main/resources/apple.jpg");
+    public void             loadImages() {
+        ImageIcon           iia = new ImageIcon("src/main/resources/apple.jpg");
         this.apple = iia.getImage();
     }
 
-    public void     restartGame() {
-        Component[] componentList = this.getComponents();
+    public void             restartGame() {
+        Component[]         componentList = this.getComponents();
         for(Component c : componentList) {
             if (c instanceof JButton)
                 this.remove(c);
@@ -81,33 +81,32 @@ public class GameField extends JPanel implements ActionListener{
         initGame();
     }
 
-    public void     setMovingRight() {
+    public void             setMovingRight() {
         if (!this.movingDir.getMovingDir().equals("left")) {
             this.movingDir.setMovingRight();
         }
     }
 
-    public void     setMovingLeft() {
+    public void             setMovingLeft() {
         if (!this.movingDir.getMovingDir().equals("right")) {
             this.movingDir.setMovingLeft();
         }
     }
 
-    public void     setMovingUp() {
+    public void             setMovingUp() {
         if (!this.movingDir.getMovingDir().equals("down")) {
             this.movingDir.setMovingUp();
         }
     }
 
-    public void     setMovingDown() {
-        System.out.println(this.movingDir.getMovingDir());
+    public void             setMovingDown() {
         if (!this.movingDir.getMovingDir().equals("up")) {
             this.movingDir.setMovingDown();
         }
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void          paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.inGame) {
             g.drawImage(apple, appleX, appleY, this);
@@ -118,18 +117,19 @@ public class GameField extends JPanel implements ActionListener{
         } else {
             timer.stop();
             JButton gameOverBtn = new JButton("Try again");
-            gameOverBtn.setBounds(FIELD_SIZE/2 - 45, FIELD_SIZE/2 + 15,FIELD_SIZE/3, FIELD_SIZE/10);
+            gameOverBtn.setBounds(FIELD_SIZE/2 - FIELD_SIZE/6, FIELD_SIZE/2 + 15,FIELD_SIZE/3, FIELD_SIZE/10);
             gameOverBtn.addActionListener(e -> restartGame());
             this.add(gameOverBtn);
             String gameOver = "Game Over";
             Font font =  new Font("Arial", Font.BOLD, (int)(FIELD_SIZE/20));
+            int stringWidth = g.getFontMetrics(font).stringWidth(gameOver);
             g.setColor(Color.white);
             g.setFont(font);
-            g.drawString(gameOver, FIELD_SIZE/2 - (FIELD_SIZE/9) , FIELD_SIZE/2 - (FIELD_SIZE/30));
+            g.drawString(gameOver, FIELD_SIZE/2 - (stringWidth/2) , FIELD_SIZE/2 - (FIELD_SIZE/30));
         }
     }
 
-    public void     move() {
+    public void             move() {
         for (int i = this.snakeSize; i > 0; i--) {
             fieldCellX[i] = fieldCellX[i - 1];
             fieldCellY[i] = fieldCellY[i - 1];
@@ -144,14 +144,14 @@ public class GameField extends JPanel implements ActionListener{
             fieldCellY[0] += CELL_SIZE;
     }
 
-    public void     checkApple() {
+    public void             checkApple() {
         if (fieldCellX[0] == appleX && fieldCellY[0] == appleY) {
             this.snakeSize++;
             createApple();
         }
     }
 
-    public void     checkCollisions() {
+    public void             checkCollisions() {
         for (int i = this.snakeSize; i > 0; i--) {
             if (i > 4 && fieldCellX[0] == fieldCellX[i] && fieldCellY[0] == fieldCellY[i]) {
                 inGame = false;
@@ -169,7 +169,7 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     @Override
-    public void     actionPerformed(ActionEvent e) {
+    public void             actionPerformed(ActionEvent e) {
         if (this.inGame) {
             checkApple();
             checkCollisions();
@@ -178,30 +178,30 @@ public class GameField extends JPanel implements ActionListener{
         this.repaint();
     }
 
-    class UpAction extends AbstractAction {
+    class                   UpAction extends AbstractAction {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void         actionPerformed(ActionEvent e) {
             setMovingUp();
         }
     }
 
-    class DownAction extends AbstractAction {
+    class                   DownAction extends AbstractAction {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void         actionPerformed(ActionEvent e) {
             setMovingDown();
         }
     }
 
-    class LeftAction extends AbstractAction {
+    class                   LeftAction extends AbstractAction {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void         actionPerformed(ActionEvent e) {
             setMovingLeft();
         }
     }
 
-    class RightAction extends AbstractAction {
+    class                   RightAction extends AbstractAction {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void         actionPerformed(ActionEvent e) {
             setMovingRight();
         }
     }

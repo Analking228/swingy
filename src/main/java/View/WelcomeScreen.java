@@ -3,7 +3,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
-public class        MyComponent extends JComponent {
+public class        WelcomeScreen extends JPanel {
 
     @Override
     protected void  paintComponent(Graphics g) {

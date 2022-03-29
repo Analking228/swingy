@@ -13,35 +13,31 @@ public class        MovingDir {
 
 
     public void     setMovingRight() {
-        if (!this.left) {
-            this.right = true;
-            this.up = false;
-            this.down = false;
-        }
+        this.right = true;
+        this.up = false;
+        this.down = false;
+        this.left = false;
     }
 
     public void     setMovingLeft() {
-        if (!this.right) {
-            this.left = true;
-            this.up = false;
-            this.down = false;
-        }
+        this.left = true;
+        this.up = false;
+        this.down = false;
+        this.right = false;
     }
 
     public void     setMovingUp() {
-        if (!this.down) {
-            this.left = false;
-            this.right = false;
-            this.up = true;
-        }
+        this.left = false;
+        this.right = false;
+        this.up = true;
+        this.down = false;
     }
 
     public void     setMovingDown() {
-        if (!this.up) {
-            this.left = false;
-            this.right = false;
-            this.down = true;
-        }
+        this.left = false;
+        this.right = false;
+        this.down = true;
+        this.up = false;
     }
 
     public String  getMovingDir() {
