@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class GamePlane extends JPanel implements ActionListener{
+public class GamePanel extends JPanel implements ActionListener{
 //    private Image           apple;
     private int             appleX;
     private int             appleY;
@@ -21,7 +21,8 @@ public class GamePlane extends JPanel implements ActionListener{
     private final Timer     timer;
     private final MovingDir movingDir;
 
-    public GamePlane(int gameFieldXSize, MovingDir movingDir) {
+    public GamePanel(int gameFieldXSize, MovingDir movingDir) {
+        this.setLayout(null);
         FIELD_SIZE = gameFieldXSize;
         CELL_SIZE = FIELD_SIZE / 20;
         this.movingDir = movingDir;
@@ -117,6 +118,11 @@ public class GamePlane extends JPanel implements ActionListener{
                 g.fillRect(fieldCellX[i], fieldCellY[i], CELL_SIZE, CELL_SIZE);
             }
         } else {
+            Component[] components = this.getComponents();
+            for (Component c : components) {
+                if (c instanceof JButton)
+                    this.remove(c);
+            }
             timer.stop();
             JButton gameOverBtn = new JButton("Try again");
             gameOverBtn.setBounds(FIELD_SIZE/2 - FIELD_SIZE/6, FIELD_SIZE/2 + 15,FIELD_SIZE/3, FIELD_SIZE/10);

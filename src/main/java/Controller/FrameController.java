@@ -15,6 +15,8 @@ public class            FrameController {
 
     public void         toSnakeGameFrame(int boundsX, int boundsY) {
         frames.add(new GameFrame(boundsX, boundsY));
+//        frames.get(0).dispose();
+//        frames.remove(0);
     }
 
     public void         exitGame() {

@@ -19,7 +19,7 @@ public class                GameFrame extends JFrame {
         Dimension dimension = toolkit.getScreenSize();
         this.setSize(wSX, wSY);
         this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
-        this.add(new GamePlane(wSX, new MovingDir()));
+        this.add(new GamePanel(wSX, new MovingDir()));
         this.setVisible(true);
     }
 }
