@@ -51,7 +51,6 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void             initGame() {
-        System.out.println(CELL_SIZE);
         this.movingDir.setMovingRight();
         this.snakeSize = 3;
         for (int i = 0; i < this.snakeSize; i++) {
@@ -162,8 +161,8 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void             createApple() {
-        this.appleX = new Random().nextInt(20) * CELL_SIZE;
-        this.appleY = new Random().nextInt(20) * CELL_SIZE;
+        this.appleX = new Random().nextInt(19) * CELL_SIZE;
+        this.appleY = new Random().nextInt(19) * CELL_SIZE;
         for (int i = this.snakeSize; i > 0; i--) {
             if (this.appleX == fieldCellX[i])
                 if (this.appleY == fieldCellY[i])
@@ -179,9 +178,9 @@ public class GamePanel extends JPanel implements ActionListener{
                 break;
             }
         }
-        if (fieldCellX[0] > FIELD_SIZE)
+        if (fieldCellX[0] > FIELD_SIZE - CELL_SIZE)
             inGame = false;
-        if (fieldCellY[0] > FIELD_SIZE)
+        if (fieldCellY[0] >  FIELD_SIZE - CELL_SIZE)
             inGame = false;
         if (fieldCellX[0] < 0)
             inGame = false;
