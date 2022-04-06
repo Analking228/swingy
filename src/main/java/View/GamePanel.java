@@ -65,16 +65,11 @@ public class GamePanel extends JPanel implements ActionListener{
         requestFocus();
     }
 
-    public void             createApple() {
-        this.appleX = new Random().nextInt(20) * CELL_SIZE;
-        this.appleY = new Random().nextInt(20) * CELL_SIZE;
-    }
 
 //    public void             loadImages() {
 //        ImageIcon           iia = new ImageIcon("src/main/resources/apple.jpg");
 //        this.apple = iia.getImage();
 //    }
-
     public void             restartGame() {
         Component[]         componentList = this.getComponents();
         for(Component c : componentList) {
@@ -160,17 +155,26 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void             checkApple() {
-//        System.out.println("Apple pos: " + this.appleX + "-" + this.appleY);
-//        System.out.println("Snake head pos:" + this.fieldCellX[0] + "-" + this.fieldCellY[0]);
         if (fieldCellX[0] == appleX && fieldCellY[0] == appleY) {
             this.snakeSize++;
             createApple();
         }
     }
 
-    public void             checkCollisions() {
+    public void             createApple() {
+        this.appleX = new Random().nextInt(20) * CELL_SIZE;
+        this.appleY = new Random().nextInt(20) * CELL_SIZE;
         for (int i = this.snakeSize; i > 0; i--) {
-            if (i > 4 && fieldCellX[0] == fieldCellX[i] && fieldCellY[0] == fieldCellY[i]) {
+            if (this.appleX == fieldCellX[i])
+                if (this.appleY == fieldCellY[i])
+                    createApple();
+                    break;
+        }
+    }
+
+    public void             checkCollisions() {
+        for (int i = this.snakeSize; i > 1; i--) {
+            if (fieldCellX[0] == fieldCellX[i] && fieldCellY[0] == fieldCellY[i]) {
                 inGame = false;
                 break;
             }
