@@ -27,6 +27,7 @@ public class WelcomePanel extends JPanel {
         requestFocusInWindow();
         requestFocus();
     }
+
     @Override
     protected void  paintComponent(Graphics g) {
     }

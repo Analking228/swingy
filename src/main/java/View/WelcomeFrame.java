@@ -16,6 +16,7 @@ public class        WelcomeFrame extends JFrame {
         this.observer = frameController;
         wSX = boundsX;
         wSY = boundsY;
+        this.setBackground(Color.lightGray);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Toolkit     toolkit = Toolkit.getDefaultToolkit();
         Dimension   dimension = toolkit.getScreenSize();
@@ -26,10 +27,12 @@ public class        WelcomeFrame extends JFrame {
     }
 
     void    startGame(int boundsX, int boundsY) {
+        this.dispose();
         this.observer.toSnakeGameFrame(boundsX, boundsY);
     }
 
     void    exitGame() {
+        this.dispose();
         this.observer.exitGame();
     }
 }
