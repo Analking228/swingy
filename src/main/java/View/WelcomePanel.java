@@ -19,6 +19,9 @@ public class WelcomePanel extends JPanel {
         startGameBtn.setBounds(wSX/2 - wSY/6, wSY/4 - wSY/12, wSX/3, wSY/6);
         startGameBtn.addActionListener(e -> headFrame.startGame(wSX, wSY));
         this.add(startGameBtn);
+        JButton settingsBtn = new JButton("Settings");
+        settingsBtn.setBounds(wSX/2 - wSY/6, wSY/2 - wSY/12, wSX/3, wSY/6 );
+        this.add(settingsBtn);
         JButton exitGameBtn = new JButton("Exit");
         exitGameBtn.setBounds(wSX/2 - wSY/6, (wSY/4 * 3) - wSY/12, wSX/3, wSY/6);
         exitGameBtn.addActionListener(e -> headFrame.exitGame());
