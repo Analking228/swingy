@@ -10,13 +10,12 @@ public class            FrameController {
     ArrayList<JFrame> frames;
 
     public              FrameController() {
+        assert frames != null;
         frames.add(new WelcomeFrame(this, 500, 525));
     }
 
     public void         toSnakeGameFrame(int boundsX, int boundsY) {
         frames.add(new GameFrame(boundsX, boundsY));
-//        frames.get(0).dispose();
-//        frames.remove(0);
     }
 
     public void         exitGame() {

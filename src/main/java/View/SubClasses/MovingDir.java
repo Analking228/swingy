@@ -1,55 +1,44 @@
 package View.SubClasses;
 
-public class        MovingDir {
+public class            MovingDir {
 
-    private boolean  up;
-    private boolean  down;
-    private boolean  left;
-    private boolean  right;
+    private int         previousDir;
+    private int         currentDir;
+    private final int   RIGHT = 1;
+    private final int   DOWN = 2;
+    private final int   LEFT = 3;
+    private final int   UP = 4;
 
     public          MovingDir() {
+        this.setPreviousDir(RIGHT);
         this.setMovingRight();
     }
 
 
     public void     setMovingRight() {
-        this.right = true;
-        this.up = false;
-        this.down = false;
-        this.left = false;
+        this.currentDir = RIGHT;
     }
 
     public void     setMovingLeft() {
-        this.left = true;
-        this.up = false;
-        this.down = false;
-        this.right = false;
+        this.currentDir = LEFT;
     }
 
     public void     setMovingUp() {
-        this.left = false;
-        this.right = false;
-        this.up = true;
-        this.down = false;
+        this.currentDir = UP;
     }
 
     public void     setMovingDown() {
-        this.left = false;
-        this.right = false;
-        this.down = true;
-        this.up = false;
+        this.currentDir = DOWN;
     }
 
-    public String  getMovingDir() {
-        if (this.left) {
-            return "left";
-        }
-        if (this.right) {
-            return "right";
-        }
-        if (this.up) {
-            return  "up";
-        }
-        return "down";
+    public void     setPreviousDir(int dir) {
+        this.previousDir = dir;
+    }
+    public int      getPreviousDir() {
+        return this.previousDir;
+    }
+
+    public int      getMovingDir() {
+        return this.currentDir;
     }
 }

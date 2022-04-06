@@ -20,6 +20,10 @@ public class GamePanel extends JPanel implements ActionListener{
     private final int[]     fieldCellY;
     private final Timer     timer;
     private final MovingDir movingDir;
+    private final int       RIGHT = 1;
+    private final int       DOWN = 2;
+    private final int       LEFT = 3;
+    private final int       UP = 4;
 
     public GamePanel(int gameFieldXSize, MovingDir movingDir) {
         this.setLayout(null);
@@ -84,25 +88,25 @@ public class GamePanel extends JPanel implements ActionListener{
     }
 
     public void             setMovingRight() {
-        if (!this.movingDir.getMovingDir().equals("left")) {
+        if (this.movingDir.getPreviousDir() != LEFT) {
             this.movingDir.setMovingRight();
         }
     }
 
     public void             setMovingLeft() {
-        if (!this.movingDir.getMovingDir().equals("right")) {
+        if (this.movingDir.getPreviousDir() != RIGHT) {
             this.movingDir.setMovingLeft();
         }
     }
 
     public void             setMovingUp() {
-        if (!this.movingDir.getMovingDir().equals("down")) {
+        if (this.movingDir.getPreviousDir() != DOWN) {
             this.movingDir.setMovingUp();
         }
     }
 
     public void             setMovingDown() {
-        if (!this.movingDir.getMovingDir().equals("up")) {
+        if (this.movingDir.getPreviousDir() != UP) {
             this.movingDir.setMovingDown();
         }
     }
@@ -118,11 +122,6 @@ public class GamePanel extends JPanel implements ActionListener{
                 g.fillRect(fieldCellX[i], fieldCellY[i], CELL_SIZE, CELL_SIZE);
             }
         } else {
-            Component[] components = this.getComponents();
-            for (Component c : components) {
-                if (c instanceof JButton)
-                    this.remove(c);
-            }
             timer.stop();
             JButton gameOverBtn = new JButton("Try again");
             gameOverBtn.setBounds(FIELD_SIZE/2 - FIELD_SIZE/6, FIELD_SIZE/2 + 15,FIELD_SIZE/3, FIELD_SIZE/10);
@@ -142,14 +141,22 @@ public class GamePanel extends JPanel implements ActionListener{
             fieldCellX[i] = fieldCellX[i - 1];
             fieldCellY[i] = fieldCellY[i - 1];
         }
-        if (this.movingDir.getMovingDir().equals("left"))
+        if (this.movingDir.getMovingDir() == LEFT) {
             fieldCellX[0] -= CELL_SIZE;
-        if (this.movingDir.getMovingDir().equals("right"))
+            this.movingDir.setPreviousDir(LEFT);
+        }
+        if (this.movingDir.getMovingDir() == RIGHT) {
             fieldCellX[0] += CELL_SIZE;
-        if (this.movingDir.getMovingDir().equals("up"))
+            this.movingDir.setPreviousDir(RIGHT);
+        }
+        if (this.movingDir.getMovingDir() == UP) {
             fieldCellY[0] -= CELL_SIZE;
-        if (this.movingDir.getMovingDir().equals("down"))
+            this.movingDir.setPreviousDir(UP);
+        }
+        if (this.movingDir.getMovingDir() == DOWN) {
             fieldCellY[0] += CELL_SIZE;
+            this.movingDir.setPreviousDir(DOWN);
+        }
     }
 
     public void             checkApple() {
