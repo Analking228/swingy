@@ -20,7 +20,7 @@ public class                GameFrame extends JFrame {
         this.setSize(wSX, wSY);
         this.setLocation(dimension.width/2 - (wSX)/2, dimension.height/2 - (wSY)/2);
         this.setResizable(false);
-        this.add(new GamePanel(wSX, new MovingDir()));
+        this.add(new GamePanel(wSX - this.getInsets().left - this.getInsets().right, new MovingDir()));
         this.setVisible(true);
     }
 }

@@ -6,24 +6,24 @@ import java.awt.*;
 public class WelcomePanel extends JPanel {
 
     WelcomeFrame    headFrame;
-    int             wSX;
-    int             wSY;
+    int             pX;
+    int             pY;
 
-    public WelcomePanel(WelcomeFrame headFrame, int wsx, int wsy) {
+    public WelcomePanel(WelcomeFrame headFrame, int px, int py) {
         this.headFrame = headFrame;
-        this.wSX = wsx;
-        this.wSY = wsy;
+        this.pX = px;
+        this.pY = py;
         this.setLayout(null);
         this.setBackground(Color.lightGray);
         JButton startGameBtn = new JButton("Play");
-        startGameBtn.setBounds(wSX/2 - wSY/6, wSY/4 - wSY/12, wSX/3, wSY/6);
-        startGameBtn.addActionListener(e -> headFrame.startGame(wSX, wSY));
+        startGameBtn.setBounds(pX/2 - pX/6, pY/4 - pY/12, pX/3, pY/6);
+        startGameBtn.addActionListener(e -> headFrame.startGame());
         this.add(startGameBtn);
         JButton settingsBtn = new JButton("Settings");
-        settingsBtn.setBounds(wSX/2 - wSY/6, wSY/2 - wSY/12, wSX/3, wSY/6 );
+        settingsBtn.setBounds(pX/2 - pX/6, pY/2 - pY/12, pX/3, pY/6 );
         this.add(settingsBtn);
         JButton exitGameBtn = new JButton("Exit");
-        exitGameBtn.setBounds(wSX/2 - wSY/6, (wSY/4 * 3) - wSY/12, wSX/3, wSY/6);
+        exitGameBtn.setBounds(pX/2 - pX/6, (pY/4 * 3) - pY/12, pX/3, pY/6);
         exitGameBtn.addActionListener(e -> headFrame.exitGame());
         this.add(exitGameBtn);
         setFocusable(true);

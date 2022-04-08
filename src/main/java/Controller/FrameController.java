@@ -10,8 +10,8 @@ public class            FrameController {
     ArrayList<JFrame> frames;
 
     public              FrameController() {
-        assert frames != null;
-        frames.add(new WelcomeFrame(this, 500, 525));
+        assert false;
+        frames.add(new WelcomeFrame(this, 500, 500));
     }
 
     public void         toSnakeGameFrame(int boundsX, int boundsY) {
