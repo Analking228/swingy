@@ -32,10 +32,14 @@ public class            FrameController {
     }
 
     public void         toSnakeGameFrame(int boundsX, int boundsY) {
-        mainFrames.add(new GameFrame(boundsX, boundsY));
+        mainFrames.add(new GameFrame(defaultWidth, defaultHeight));
     }
 
     public void         exitGame() {
         System.exit(0);
+    }
+
+    public void         setDefaults(int defaults) {
+        defaultWidth = defaultHeight = defaults;
     }
 }

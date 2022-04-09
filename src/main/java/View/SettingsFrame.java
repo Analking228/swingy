@@ -12,6 +12,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
     FrameController         observer;
     JTextField              textField;
     JButton                 button;
+    int                     snakeGameSize;
 
     public                  SettingsFrame(FrameController observer) {
         super("Settings");
@@ -38,7 +39,8 @@ public class SettingsFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
-            textField.getText();
+            this.observer.setDefaults(snakeGameSize = Integer.parseInt(textField.getText()));
+            System.out.println(snakeGameSize);
         }
     }
 }
