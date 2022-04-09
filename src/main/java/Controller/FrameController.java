@@ -1,13 +1,15 @@
 package Controller;
 
 import View.GameFrame;
+import View.SettingsFrame;
 import View.WelcomeFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class            FrameController {
-    ArrayList<JFrame> frames;
+    ArrayList<JFrame>   mainFrames;
+    ArrayList<JFrame>   secondaryFrames;
     int                 defaultWidth;
     int                 defaultHeight;
 
@@ -15,7 +17,7 @@ public class            FrameController {
         assert false;
         this.defaultWidth = 500;
         this.defaultHeight = 500;
-        frames.add(new WelcomeFrame(this, this.defaultWidth, this.defaultHeight));
+        mainFrames.add(new WelcomeFrame(this, this.defaultWidth, this.defaultHeight));
     }
 
 
@@ -26,11 +28,11 @@ public class            FrameController {
     }
 
     public void         createSettingsFrame() {
-
+        this.secondaryFrames.add(new SettingsFrame());
     }
 
     public void         toSnakeGameFrame(int boundsX, int boundsY) {
-        frames.add(new GameFrame(boundsX, boundsY));
+        mainFrames.add(new GameFrame(boundsX, boundsY));
     }
 
     public void         exitGame() {
