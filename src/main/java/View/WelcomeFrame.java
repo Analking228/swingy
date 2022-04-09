@@ -8,14 +8,12 @@ import java.awt.*;
 public class        WelcomeFrame extends JFrame {
 
     FrameController observer;
-    int             wSX;
-    int             wSY;
 
     public          WelcomeFrame(FrameController frameController, int gameFiledX, int gameFiledY) {
         super("Welcome to SnakeApple game");
         this.observer = frameController;
-        wSX = gameFiledX + this.getInsets().left + this.getInsets().right;
-        wSY = gameFiledY + this.getInsets().bottom + this.getInsets().top;
+        int     wSX = gameFiledX + this.getInsets().left + this.getInsets().right;
+        int     wSY = gameFiledY + this.getInsets().bottom + this.getInsets().top;
         this.setBackground(Color.lightGray);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Toolkit     toolkit = Toolkit.getDefaultToolkit();
@@ -32,7 +30,7 @@ public class        WelcomeFrame extends JFrame {
 
     void    startGame() {
         this.dispose();
-        this.observer.toSnakeGameFrame(wSX, wSY);  // костыль с 25 +- рамкой
+        this.observer.toSnakeGameFrame(this.getInsets().left + this.getInsets().right, this.getInsets().bottom + this.getInsets().top);  // костыль с 25 +- рамкой
     }
 
     void    exitGame() {

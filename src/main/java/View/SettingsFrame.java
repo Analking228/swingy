@@ -40,7 +40,7 @@ public class SettingsFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
             this.observer.setDefaults(snakeGameSize = Integer.parseInt(textField.getText()));
-            System.out.println(snakeGameSize);
+            this.dispose();
         }
     }
 }
