@@ -8,7 +8,7 @@ public class SettingsFrame extends JFrame {
     public                  SettingsFrame() {
         super("Settings");
         this.setLayout(null);
-        this.setBackground(Color.black);
+        this.setBackground(Color.lightGray);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Toolkit     toolkit = Toolkit.getDefaultToolkit();
         Dimension   dimension = toolkit.getScreenSize();

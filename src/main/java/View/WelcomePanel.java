@@ -3,13 +3,13 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
-public class WelcomePanel extends JPanel {
+public class        WelcomePanel extends JPanel {
 
     WelcomeFrame    headFrame;
     int             pX;
     int             pY;
 
-    public WelcomePanel(WelcomeFrame headFrame, int px, int py) {
+    public          WelcomePanel(WelcomeFrame headFrame, int px, int py) {
         this.headFrame = headFrame;
         this.pX = px;
         this.pY = py;
