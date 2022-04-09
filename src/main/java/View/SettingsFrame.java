@@ -15,17 +15,17 @@ public class SettingsFrame extends JFrame implements ActionListener {
     int                     snakeGameSize;
 
     public                  SettingsFrame(FrameController observer) {
-        super("Settings");
+        super("Set game field size");
         this.observer = observer;
         this.setLayout(new FlowLayout());
         this.setBackground(Color.lightGray);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Toolkit     toolkit = Toolkit.getDefaultToolkit();
-        Dimension dimension = toolkit.getScreenSize();
-        //this.setSize(300, 300);
         this.setResizable(false);
 
-        button = new JButton("Submit");
+        Toolkit     toolkit = Toolkit.getDefaultToolkit();
+        Dimension dimension = toolkit.getScreenSize();
+
+        button = new JButton("Enter");
         button.addActionListener(this);
         this.add(button);
         textField = new JTextField();
