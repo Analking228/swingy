@@ -28,7 +28,7 @@ public class            FrameController {
     }
 
     public void         createSettingsFrame() {
-        this.secondaryFrames.add(new SettingsFrame());
+        this.secondaryFrames.add(new SettingsFrame(this));
     }
 
     public void         toSnakeGameFrame(int boundsX, int boundsY) {
