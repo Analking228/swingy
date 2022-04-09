@@ -21,6 +21,7 @@ public class WelcomePanel extends JPanel {
         this.add(startGameBtn);
         JButton settingsBtn = new JButton("Settings");
         settingsBtn.setBounds(pX/2 - pX/6, pY/2 - pY/12, pX/3, pY/6 );
+        settingsBtn.addActionListener(e -> headFrame.createSettingsFrame());
         this.add(settingsBtn);
         JButton exitGameBtn = new JButton("Exit");
         exitGameBtn.setBounds(pX/2 - pX/6, (pY/4 * 3) - pY/12, pX/3, pY/6);

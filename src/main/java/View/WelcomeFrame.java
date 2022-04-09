@@ -26,6 +26,10 @@ public class        WelcomeFrame extends JFrame {
         this.setVisible(true);
     }
 
+    void    createSettingsFrame() {
+        this.observer.createSettingsFrame();
+    }
+
     void    startGame() {
         this.dispose();
         this.observer.toSnakeGameFrame(wSX, wSY);  // костыль с 25 +- рамкой
