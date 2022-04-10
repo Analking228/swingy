@@ -16,15 +16,15 @@ public class        WelcomePanel extends JPanel {
         this.setLayout(null);
         this.setBackground(Color.lightGray);
         JButton startGameBtn = new JButton("Play");
-        startGameBtn.setBounds(this.pX/2 - this.pX/6, this.pY/4 - this.pY/12, this.pX/3, this.pY/6);
+        startGameBtn.setBounds(this.pX/2 - this.pX/6, this.pY/4 - this.pY/8, this.pX/3, this.pY/6);
         startGameBtn.addActionListener(e -> this.headFrame.startGame());
         this.add(startGameBtn);
         JButton settingsBtn = new JButton("Settings");
-        settingsBtn.setBounds(this.pX/2 - this.pX/6, this.pY/2 - this.pY/12, this.pX/3, this.pY/6 );
+        settingsBtn.setBounds(this.pX/2 - this.pX/6, this.pY/2 - this.pY/8, this.pX/3, this.pY/6 );
         settingsBtn.addActionListener(e -> this.headFrame.createSettingsFrame());
         this.add(settingsBtn);
         JButton exitGameBtn = new JButton("Exit");
-        exitGameBtn.setBounds(this.pX/2 - this.pX/6, (this.pY/4 * 3) - this.pY/12, this.pX/3, this.pY/6);
+        exitGameBtn.setBounds(this.pX/2 - this.pX/6, (this.pY/4 * 3) - this.pY/8, this.pX/3, this.pY/6);
         exitGameBtn.addActionListener(e -> this.headFrame.exitGame());
         this.add(exitGameBtn);
         setFocusable(true);

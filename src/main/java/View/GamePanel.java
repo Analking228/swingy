@@ -163,11 +163,9 @@ public class GamePanel extends JPanel implements ActionListener{
     public void             createApple() {
         this.appleX = new Random().nextInt(19) * CELL_SIZE;
         this.appleY = new Random().nextInt(19) * CELL_SIZE;
-        for (int i = this.snakeSize; i > 0; i--) {
-            if (this.appleX == this.fieldCellX[i])
-                if (this.appleY == this.fieldCellY[i])
-                    createApple();
-                    break;
+        for (int i = 0; i < 20; i++) {
+            if (this.appleY == this.fieldCellY[i] && this.appleX == this.fieldCellX[i])
+                createApple();
         }
     }
 

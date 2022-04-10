@@ -14,9 +14,9 @@ public class            FrameController {
     int                 defaultHeight;
 
     public              FrameController() {
-        assert false;
         this.defaultWidth = 500;
         this.defaultHeight = 500;
+        assert (mainFrames != null);
         mainFrames.add(new WelcomeFrame(this, this.defaultWidth, this.defaultHeight));
     }
 
@@ -40,6 +40,10 @@ public class            FrameController {
     }
 
     public void         setDefaults(int defaults) {
+        if (defaults < 0)
+        defaults = -defaults;
+        if (defaults > 1080)
+        defaults = 1080;
         defaultWidth = defaultHeight = defaults;
     }
 }
