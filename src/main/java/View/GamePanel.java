@@ -110,10 +110,10 @@ public class GamePanel extends JPanel implements ActionListener{
         super.paintComponent(g);
         if (this.inGame) {
             g.setColor(Color.red);
-            g.fillRect(appleX, appleY, CELL_SIZE, CELL_SIZE);
+            g.fillRect(this.appleX, this.appleY, CELL_SIZE, CELL_SIZE);
             for (int i = 0; i < this.snakeSize; i++) {
                 g.setColor(Color.green);
-                g.fillRect(fieldCellX[i], fieldCellY[i], CELL_SIZE, CELL_SIZE);
+                g.fillRect(this.fieldCellX[i], this.fieldCellY[i], CELL_SIZE, CELL_SIZE);
             }
         } else {
             timer.stop();
@@ -132,29 +132,29 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void             move() {
         for (int i = this.snakeSize; i > 0; i--) {
-            fieldCellX[i] = fieldCellX[i - 1];
-            fieldCellY[i] = fieldCellY[i - 1];
+            this.fieldCellX[i] = this.fieldCellX[i - 1];
+            this.fieldCellY[i] = this.fieldCellY[i - 1];
         }
         if (this.movingDir.getMovingDir() == LEFT) {
-            fieldCellX[0] -= CELL_SIZE;
+            this.fieldCellX[0] -= CELL_SIZE;
             this.movingDir.setPreviousDir(LEFT);
         }
         if (this.movingDir.getMovingDir() == RIGHT) {
-            fieldCellX[0] += CELL_SIZE;
+            this.fieldCellX[0] += CELL_SIZE;
             this.movingDir.setPreviousDir(RIGHT);
         }
         if (this.movingDir.getMovingDir() == UP) {
-            fieldCellY[0] -= CELL_SIZE;
+            this.fieldCellY[0] -= CELL_SIZE;
             this.movingDir.setPreviousDir(UP);
         }
         if (this.movingDir.getMovingDir() == DOWN) {
-            fieldCellY[0] += CELL_SIZE;
+            this.fieldCellY[0] += CELL_SIZE;
             this.movingDir.setPreviousDir(DOWN);
         }
     }
 
     public void             checkApple() {
-        if (fieldCellX[0] == appleX && fieldCellY[0] == appleY) {
+        if (this.fieldCellX[0] == this.appleX && this.fieldCellY[0] == this.appleY) {
             this.snakeSize++;
             createApple();
         }
@@ -164,8 +164,8 @@ public class GamePanel extends JPanel implements ActionListener{
         this.appleX = new Random().nextInt(19) * CELL_SIZE;
         this.appleY = new Random().nextInt(19) * CELL_SIZE;
         for (int i = this.snakeSize; i > 0; i--) {
-            if (this.appleX == fieldCellX[i])
-                if (this.appleY == fieldCellY[i])
+            if (this.appleX == this.fieldCellX[i])
+                if (this.appleY == this.fieldCellY[i])
                     createApple();
                     break;
         }
@@ -173,19 +173,19 @@ public class GamePanel extends JPanel implements ActionListener{
 
     public void             checkCollisions() {
         for (int i = this.snakeSize; i > 1; i--) {
-            if (fieldCellX[0] == fieldCellX[i] && fieldCellY[0] == fieldCellY[i]) {
-                inGame = false;
+            if (this.fieldCellX[0] == this.fieldCellX[i] && this.fieldCellY[0] == this.fieldCellY[i]) {
+                this.inGame = false;
                 break;
             }
         }
-        if (fieldCellX[0] > FIELD_SIZE - CELL_SIZE)
-            inGame = false;
-        if (fieldCellY[0] >  FIELD_SIZE - CELL_SIZE)
-            inGame = false;
-        if (fieldCellX[0] < 0)
-            inGame = false;
-        if (fieldCellY[0] < 0)
-            inGame = false;
+        if (this.fieldCellX[0] > FIELD_SIZE - CELL_SIZE)
+            this.inGame = false;
+        if (this.fieldCellY[0] >  FIELD_SIZE - CELL_SIZE)
+            this.inGame = false;
+        if (this.fieldCellX[0] < 0)
+            this.inGame = false;
+        if (this.fieldCellY[0] < 0)
+            this.inGame = false;
     }
 
     @Override

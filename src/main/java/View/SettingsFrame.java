@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 public class SettingsFrame extends JFrame implements ActionListener {
 
     FrameController         observer;
-    JTextField              textField;
-    JButton                 button;
+    JTextField              sizeTF;
+    JButton                 enterBtn;
     int                     snakeGameSize;
 
     public                  SettingsFrame(FrameController observer) {
@@ -25,12 +25,12 @@ public class SettingsFrame extends JFrame implements ActionListener {
         Toolkit     toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
 
-        button = new JButton("Enter");
-        button.addActionListener(this);
-        this.add(button);
-        textField = new JTextField();
-        textField.setPreferredSize(new Dimension(250, 40));
-        this.add(textField);
+        this.enterBtn = new JButton("Enter");
+        this.enterBtn.addActionListener(this);
+        this.add(enterBtn);
+        this.sizeTF = new JTextField();
+        this.sizeTF.setPreferredSize(new Dimension(250, 40));
+        this.add(sizeTF);
         this.pack(); // размер подстраивается под компоненты внутри фрейма
         this.setLocation(dimension.width/2 - this.getWidth()/2, dimension.height/2 - this.getHeight()/2);
         this.setVisible(true);
@@ -38,8 +38,8 @@ public class SettingsFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button) {
-            this.observer.setDefaults(snakeGameSize = Integer.parseInt(textField.getText()));
+        if (e.getSource() == this.enterBtn) {
+            this.observer.setDefaults(this.snakeGameSize = Integer.parseInt(this.sizeTF.getText()));
             this.dispose();
         }
     }
